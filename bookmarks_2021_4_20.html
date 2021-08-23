@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title>webservice</title>
+    </head>
+    <body>
+        <input type="button" value="JS调用WebService" onclick="RequestWebService()"></input>
+        <p id="data"></p>
+        <script>
+            function RequestWebService() {
+                var data;
+                //SOAP 请求报文格式，
+                data = '<?xml version="1.0" encoding="utf-8"?>'; 
+                data = data + '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">'; 
+                data = data + '<soap:Body>'; 
+                data = data + '<getRegionCountry xmlns="http://WebXml.com.cn/" />';//这里就是发布的方法名和xml文档中的命名空间地址（图中画线部分）
+                data = data + '</soap:Body>'; 
+                data = data + '</soap:Envelope>'; 
+                var xmlhttp = new XMLHttpRequest(); 
+                var URL="http://ws.webxml.com.cn/WebServices/WeatherWS.asmx";
+                xmlhttp.onreadystatechange = () => {
+                    if(xmlhttp.status >= 200 && xmlhttp.staus < 400) {
+                        if(xmlhttp.readyState === 4) {
+                            var text = xmlhttp.responseText;
+                        }
+                    } else {
+                        console.log('error')
+                    }
+                }
+                xmlhttp.open("POST",URL, false); 
+                xmlhttp.setRequestHeader ("Content-Type","text/xml; charset=utf-8"); //SOAP 1.1为text/xml ； 1.2为 application/soap+xml
+                xmlhttp.send(data); 
+                document.getElementById("data").innerHTML = "返回结果为："+text;
+            }
+
+            </script>
+    </body>
+</html>
