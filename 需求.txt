@@ -31,3 +31,9 @@
 分类名称	name	String	分类的展示名称	是
 分类类型	type	Integer	分类的类型
 与账单数据中的 type 字段一样：1 代表收入，0 代表支出	是
+
+项目托管地址：
+http://gitlab.wanyol.com/myweb
+【S80251211/Oppo#Qwert123】
+
+
